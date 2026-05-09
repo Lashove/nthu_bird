@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>外來種心理測驗</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 全螢幕黑幕過場層 -->
+    <div id="black-transition"></div>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images/logo.png" alt="網站Logo" id="site-logo">
+                <span>外來種心理測驗</span> 
+            </div>
+            <nav class="nav-links">
+                <a href="#" onclick="showAbout()">關於我們</a>
+                <!-- 下拉式選單 -->
+                <div class="dropdown">
+                    <a href="#" class="dropbtn">外來種介紹 ▾</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="openSpeciesGrid('taiwan')">🇹🇼 台灣圖鑑</a>
+                        <a href="#" onclick="openSpeciesGrid('nthu')">🏫 清大圖鑑</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="app">
+        <!-- 模式選擇畫面 -->
+        <div id="mode-selection-screen">
+            <h1>外來種心理測驗</h1>
+            <p>請選擇你要探索的生態圈：</p>
+            <div class="mode-buttons">
+                <button onclick="selectMode('taiwan')" class="primary-btn mode-btn">🇹🇼 台灣</button>
+                <button onclick="selectMode('nthu')" class="primary-btn mode-btn">🏫 清大</button>
+            </div>
+        </div>
+
+        <!-- 關於我們 -->
+        <div id="about-screen" style="display: none;">
+            <h2>第十組</h2>
+            <div class="team-photo-container">
+                <img src="images/team.png" alt="團隊合照" id="team-photo">
+            </div>
+            <p class="team-names">陳奕豪 ｜ 許詠宜 ｜ 賴彥錞 ｜ 葉佳璇 ｜ 許柏恩</p>
+            <button onclick="goBack()" class="back-btn">返回</button>
+        </div>
+        
+        <!-- 測驗起始首頁 -->
+        <div id="start-screen" style="display: none;">
+            <h1 id="start-title">歡迎來到心理測驗</h1>
+            <p id="start-desc">簡單幾題，測出你的潛在人格！</p>
+            <button onclick="nextStep()" class="primary-btn">開始測驗</button>
+            <br>
+            <button onclick="resetToMode()" class="back-btn" style="width: 40%; font-size: 14px; padding: 10px;">返回模式選擇</button>
+        </div>
+
+        <!-- 題目畫面 -->
+        <div id="quiz-screen" style="display: none;">
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+            <h2 id="question-text">題目載入中...</h2>
+            <div id="options-container"></div>
+        </div>
+
+        <!-- 結果畫面 -->
+        <div id="result-screen" style="display: none;">
+            <h2>你的測驗結果</h2>
+            <div class="card" id="result-card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="bird-photo-container">
+                            <img id="bird-img" src="" alt="角色照片">
+                        </div>
+                        <h3 id="result-name-front" class="bird-name-title">載入中</h3>
+                        <p class="click-hint">點擊翻轉查看簡介</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="bird-info-box">
+                            <h3 id="result-name-back">角色名稱</h3>
+                            <div id="bird-detail-content"></div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" onclick="goToDetailFromResult()" class="footer-link">📖 查看物種詳細介紹</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="location.reload()" class="primary-btn" style="margin-top: 25px;">重新測驗</button>
+        </div>
+
+        <!-- 圖鑑網格畫面 -->
+        <div id="species-grid-screen" style="display: none;">
+            <h1 id="grid-title">外來種圖鑑</h1>
+            <div id="species-grid" class="species-grid">
+                <!-- 方塊會由 JavaScript 動態生成 -->
+            </div>
+            <button onclick="resetToMode()" class="back-btn" style="width: 50%; font-size: 16px;">返回首頁</button>
+        </div>
+
+        <!-- 圖鑑詳細資訊畫面 -->
+        <div id="species-detail-screen" style="display: none;">
+            <h1 id="detail-title" style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 20px;">物種名稱</h1>
+            <div class="detail-content-box">
+                <!-- 新增：照片顯示區塊 -->
+                <div class="detail-image-container">
+                    <img id="detail-img" src="" alt="物種照片">
+                </div>
+                <p><strong>學名：</strong> <span id="detail-scientific"></span></p>
+                <p><strong>外觀：</strong> <span id="detail-appearance"></span></p>
+                <p><strong>食性：</strong> <span id="detail-diet"></span></p>
+                <p><strong>世界分佈：</strong> <span id="detail-global"></span></p>
+                <p><strong id="detail-location-label">出沒地點：</strong> <span id="detail-local"></span></p>
+                <p><strong>防範方法：</strong> <span id="detail-prevention"></span></p>
+                <p><strong>小故事：</strong> <span id="detail-story"></span></p>
+            </div>
+            <button onclick="goBackToGrid()" class="primary-btn" style="width: 50%; font-size: 16px;">返回列表</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
