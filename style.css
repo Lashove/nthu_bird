@@ -542,3 +542,9 @@ body::before {
     object-fit: cover; /* 確保圖片完美填滿框框，多餘部分會自動裁切 */
     display: block;
 }
+
+/* 🌟 讓圖鑑詳細介紹中的學名呈現標準斜體 */
+#detail-scientific {
+    font-style: italic;
+    font-family: "Times New Roman", Georgia, serif; /* 通常英文學名搭配襯線體會更美觀，可自由選擇是否保留此行 */
+}
